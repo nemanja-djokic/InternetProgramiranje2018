@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+	
+<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+    
+  
+</style>
+	</h:head>
+   
+    <ui:composition>
+    <div id="formdiv" style=" margin:0 auto; width:30%;">
+        <h:form id="news_form">        
+            <p:messages id="msgs_licna"/>
+    
+     
+        <h:panelGrid columns="1" cellpadding="5">
+            <h:outputLabel value="Naslov" />
+            <h:inputText id="name" value="#{eventBean.event.title}" style="width: 97%;" required="true" label="name" />
+             
+            <h:outputLabel value="Opis" />
+            <h:inputTextarea rows="6" cols="33" id="description" value="#{eventBean.event.description}" required="true" label="description" />
+              <h:outputLabel value="Slika" />
+            <h:inputText id="image" value="#{eventBean.event.imageUrl}" style="width: 97%;" required="true" label="image" />
+            <h:outputLabel value="Datum početka" />
+        	<p:calendar id="dateStart" style="width: 81.5%;" value="#{eventBean.startDate}" required="true" requiredMessage="Invalid date!" showOn="button" >
+        	</p:calendar>
+        	<h:outputLabel value="Datum kraja" />
+        	<p:calendar id="dateEnd" style="width: 81.5%;" value="#{eventBean.endDate}" required="true" requiredMessage="Invalid date!" showOn="button" >
+        	</p:calendar>
+        <p:selectOneMenu style="width:87%;margin-top:10px;" value="#{eventBean.event.category}">
+       <f:selectItem itemLabel="Choose category" itemValue="" noSelectionOption="true" />
+       <f:selectItems value="#{eventBean.categories}"></f:selectItems>
+        </p:selectOneMenu>
+            <f:facet name="footer">
+                <h:commandButton value="Sačuvaj" action="#{eventBean.saveEvent}"></h:commandButton>
+            </f:facet>  
+        </h:panelGrid>
+</h:form>
+    	    	    </div>	
+    </ui:composition>    
+</html>

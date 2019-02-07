@@ -1,0 +1,115 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/mainAdmin.css"/>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="script/mainAdmin.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<h:head />
+<script>
+    jQuery(document).ready(function() {
+        executeScripts();
+    });
+</script>
+<f:metadata>
+	<f:event type="preRenderView" listener="#{sessionBean.onLoad}" />
+</f:metadata>
+<div class="row limited">
+	<div class="col-sm-5" align="center">
+	<h:panelGrid columns="1" cellpadding="5">
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:form id="activeUsersForm">
+				<h:panelGrid styleClass="user_count_area" columns="1" cellpadding="5">
+					<div class="container" align="center">
+						<h:outputText style="display: block; margin: 0 auto" value="Broj trenutno aktivnih korisnika"/>
+						<h:outputText style="display: block; margin: 0 auto" styleClass="user_count_output" id="activeUsersOutput" value="${(sessionBean.activeUsers != null)?sessionBean.activeUsers : 'Nepoznato'}"/>
+						<p:poll interval="10" listener="#{sessionBean.updateActiveUsers}" update="activeUsersOutput" resetValues="true"/>
+					</div>
+				</h:panelGrid>
+			</h:form>
+			<h:form id="allUsersForm">
+				<h:panelGrid styleClass="user_count_area" columns="1" cellpadding="5">
+					<div class="container" align="center">
+						<h:outputText style="display: block; margin: 0 auto" value="Broj registrovanih korisnika"/>
+						<h:outputText style="display: block; margin: 0 auto" styleClass="user_count_output" id="allUsersOutput" value="${(sessionBean.allUsers != null)?sessionBean.allUsers : 'Nepoznato'}"/>
+						<p:poll interval="10" listener="#{sessionBean.updateAllUsers}" update="allUsersOutput" resetValues="true"/>
+					</div>
+			</h:panelGrid>
+			</h:form>
+		</h:panelGrid>
+		<h:panelGrid columns="1" cellpadding="5">
+		<p:tabView orientation="left">
+        <p:tab title="Korisnici">
+			<h:form id="usersTableForm">
+				<div style="height: 500px; overflow: auto;">
+					<h:dataTable id="usersTable" value="${sessionBean.userList}" var="user">
+						<h:column>
+							<f:facet name="header">Ime i prezime</f:facet>
+							<h:outputText value="${user.firstName.concat(' ').concat(user.lastName)}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Blokiranje</f:facet>
+							<p:commandButton process="@this" action="#{sessionBean.blockUser}" value="Blokiraj" update="usersTable" resetValues="true">
+								<f:param name="idUserToBlock" value="${user.idUser}"></f:param>
+								<f:ajax render="usersTable"></f:ajax>
+							</p:commandButton>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Reset lozinke</f:facet>
+							<p:commandButton process="@this" action="#{sessionBean.resetPassword}" value="Reset lozinke" update="usersTable" resetValues="true">
+								<f:param name="idUserToReset" value="${user.idUser}"></f:param>
+								<f:ajax render="usersTable"></f:ajax>
+							</p:commandButton>
+						</h:column>
+					</h:dataTable>
+				</div>
+        		<p:poll interval="20" listener="#{sessionBean.updateUserList}" update="usersTable" resetValues="true"/>
+			</h:form>
+		</p:tab>
+		<p:tab title="Vijesti i događaji">
+			<h:form id="newsAndEventsForm">
+				<div style="height: 500px; overflow: auto;">
+					<h:dataTable id="newsAndEventsTable" value="${sessionBean.newsAndEventsList}" var="newsEvent">
+						<h:column>
+							<f:facet name="header">Vrsta</f:facet>
+							<h:outputText value="${(newsEvent.type.equals('news'))?'Vijesti':'Događaj'}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Naslov</f:facet>
+							<h:outputText value="${newsEvent.title}"></h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Brisanje</f:facet>
+							<p:commandButton process="@this" action="#{sessionBean.deleteNewsEvent}" value="Obriši" update="newsAndEventsTable" resetValues="true">
+								<f:param name="typeToDelete" value="${newsEvent.type}"></f:param>
+								<f:param name="idToDelete" value = "${newsEvent.id}"></f:param>
+								<f:ajax render="newsAndEventsTable"></f:ajax>
+							</p:commandButton>
+						</h:column>
+					</h:dataTable>
+				</div>
+        		<p:poll interval="20" listener="#{sessionBean.updateNewsAndEventsList}" update="newsAndEventsTable" resetValues="true"/>
+			</h:form>
+			</p:tab>
+		</p:tabView>
+		</h:panelGrid>
+	</h:panelGrid>
+	</div>
+	<div class="col-sm-6" align="center">
+		<div class="container d-flex h-100">
+			<div id="chart_area" class="row justify-content-center align-self-center">
+				<canvas id="chart" width="800" height="600">
+				</canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-1"></div>
+</div>
+</html>

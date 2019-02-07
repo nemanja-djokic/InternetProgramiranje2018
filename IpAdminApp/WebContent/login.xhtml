@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<h:head />
+<f:metadata>
+	<f:event type="preRenderView" listener="#{loginBean.onLoad}" />
+</f:metadata>
+<div class="row">
+	<div class="col-sm-4">
+		<h:outputText value=" "></h:outputText>
+	</div>
+	<div class="col-sm-4" align="center">
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">	
+				<h:outputText value="Korisničko ime"></h:outputText>
+				<h:inputText value="${loginBean.username}"></h:inputText>
+				<h:outputText value="Lozinka"></h:outputText>
+				<h:inputSecret value="${loginBean.password}"></h:inputSecret>
+				<h:commandButton action="#{loginBean.doLogin}" value="Prijava"></h:commandButton>
+			</h:panelGrid>
+		</h:form>
+	</div>
+	<div class="col-sm-4">
+		<h:outputText value=" "></h:outputText>
+	</div>
+</div>
+</html>

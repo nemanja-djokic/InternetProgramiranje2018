@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.user_count_output{
+	font-size: 40px;
+	font-weight: bold;
+	font-family: monospace;
+	color: #4caf50;
+	text-align: center;
+}
+
+.user_count_area{
+	border-color: #4caf50;
+	border-width: 3px;
+	border-style: solid;
+	padding: 40px 40px 40px 40px;
+	width: 100%;
+}
+
+.limited{
+	max-width: 100%;
+}

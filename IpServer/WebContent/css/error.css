@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+.error_text{
+	font-family: sans-serif;
+	font-size: x-large;
+	font-weight: bold;
+	color: red;
+}

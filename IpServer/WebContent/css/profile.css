@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.rounded_image{
+	border-color: #4caf50;
+	border-radius: 50%;
+	border-style: solid;
+}
+
+.name_div{
+	font-size: x-large;
+	font-weight: bold;
+	text-align: center;
+}
+
+.info_div{
+	text-align: center;
+	font-style: italic;
+	margin-bottom: 25px;
+}
+
+.info_title_div{
+	text-align: center;
+	font-weight: bold;
+}

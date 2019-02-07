@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.list-header-text{
+	border-bottom-style: solid;
+	border-bottom-color: #4caf50;
+	border-bottom-width: 2px;
+	font-size: medium;
+}
+
+.verticalbox{
+	height: 44vh !important;
+	max-height: 44vh !important;
+}
+
+.file_button{
+	background-color: white;
+	border-style: none;
+	color: blue;
+	width: 100%;
+}
+
+.file_button:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.file_form{
+	width: 100%;
+}
+
+.blog_input{
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 0px;
+	border-radius: 10px;
+	width: 100%;
+	border-color: #4caf50;
+	border-style: solid;
+}
+
+.comment_area{
+	border-top-color: #4caf50;
+	border-top-style: solid;
+}

@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head />
+    <ui:composition>
+    <hr/>
+    	<h:outputText value="Unesite podatke o novoj vijesti"></h:outputText>
+    	<hr />
+    	<h:form>
+    	<h:panelGrid columns="2">
+    		<h:outputText value="Naslov: "></h:outputText>
+    		<h:inputText value="${newsBean.news.title}">
+    		</h:inputText>
+    		<h:outputText value="Sadržaj: "></h:outputText>
+    		<h:inputTextarea value="${newsBean.news.content}">
+    		</h:inputTextarea>
+    		<h:outputText value=""></h:outputText>
+    		<h:commandButton value="Sačuvaj" action="#{newsBean.saveNews}"></h:commandButton>
+    	</h:panelGrid>
+    	</h:form>
+    	<h:outputText value="${obavezaBean.poruka}"></h:outputText>
+    </ui:composition>    
+</html>
